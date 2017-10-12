@@ -1,0 +1,7 @@
+\select@language {polish}
+\contentsline {chapter}{\numberline {1}Wst\IeC {\k e}p}{2}
+\contentsline {chapter}{\numberline {2}Za\IeC {\l }o\IeC {\.z}enia projektowe}{3}
+\contentsline {chapter}{\numberline {3}Technologie}{4}
+\contentsline {chapter}{\numberline {4}Projekt Systemu}{5}
+\contentsline {chapter}{\numberline {5}Realizacja}{6}
+\contentsline {chapter}{\numberline {6}Wnioski}{7}
