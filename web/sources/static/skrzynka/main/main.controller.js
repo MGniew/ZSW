@@ -18,7 +18,7 @@
 
         function init() {
             MainService.getMailboxStatus().then(function (response) {
-                if (response == 1) {
+                if (response.data == "1") {
                     vm.message = "You have new letters!"
                 } else {
                     vm.message = "You don't have any letters..."

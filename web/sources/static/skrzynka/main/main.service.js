@@ -16,7 +16,7 @@
         ////////////////
         
         function getMailboxStatus() {
-            return $http.get('http://localhost:5000/mailbox')
+            return $http.get("http://0.0.0.0:5000/")
                 .then(handleResponse())
                 .catch(handleError('An error occurred while getting user data by session:'));
 
