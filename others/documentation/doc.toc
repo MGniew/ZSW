@@ -3,5 +3,8 @@
 \contentsline {chapter}{\numberline {2}Za\IeC {\l }o\IeC {\.z}enia projektowe}{3}
 \contentsline {chapter}{\numberline {3}Technologie}{4}
 \contentsline {chapter}{\numberline {4}Projekt Systemu}{5}
-\contentsline {chapter}{\numberline {5}Realizacja}{6}
-\contentsline {chapter}{\numberline {6}Wnioski}{7}
+\contentsline {section}{\numberline {4.1}Raspberry Pi - Google Assistant}{5}
+\contentsline {subsection}{\numberline {4.1.1}Spis urz\IeC {\k a}dze\IeC {\'n}}{5}
+\contentsline {subsection}{\numberline {4.1.2}Schemat po\IeC {\l }\IeC {\k a}cze\IeC {\'n}}{8}
+\contentsline {chapter}{\numberline {5}Realizacja}{10}
+\contentsline {chapter}{\numberline {6}Wnioski}{11}

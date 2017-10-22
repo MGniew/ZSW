@@ -1,0 +1,41 @@
+
+\section{Raspberry Pi - Google Assistant}
+
+Głównym elementem naszego projektu jest mikrokomputer Raspberry Pi 3 w wersji B. Zostanie na nim zainstalowany serwer aplikacji webowej (omówiony w rozdziale <tu wstaw rozdział> i Google Assistant. W niniejszej części dokumentu zostanie omówiony projekt bezpośredniego połączenia Raspberry Pi z urządzeniami zewnętrznymi (takimi jak głośnik, mikrofon) stanowiącymi razem pewną integralną całość, w założeniu mającą znaleźć się w jednej obudowie. Zdalny moduł wykorzystujący ESP8266 zostanie omówiony w innej części tego dokumentu.
+
+\subsection{Spis urządzeń}
+
+\begin{enumerate}
+\item Raspberry Pi 3 w wersji B \\
+	\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{rpi.jpg}}
+	\end{center}
+\item Zewnętrzna karta dżwiękowa Virtual 7.1 Channel USB \\
+	\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{karta_muzyczna.jpg}}
+	\end{center}
+\item Głośnik 3W 8Ohm 40x88mm \\
+	\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{glosnik.jpg}}
+	\end{center}
+\item Wzmacniacz audio stereo PAM8403 5V 3W - dwukanałowy \\
+	\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{wzmacniacz.jpg}}
+	\end{center}
+\item Przycisk Arcade Push Button niebieski z podświetleniem \\
+	\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{button.jpg}}
+	\end{center}
+\item mikrofon
+\end{enumerate}
+
+\subsection{Schemat połączeń}
+
+Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych elementów. Rezystancje oporników mogą się różnić ze względu na wykorzystany tranzystor i rodzaj diody świecącej. W większości przypadków układ typu "klucz npn" nie będzie potrzebny, gdyż napięcie przewodzenia diody może okazać na tyle niskie, że będzie możliwe zasilenie jej z portu GPIO (niestety nie było tak w naszym przypadku).
+
+\begin{center}
+\adjustbox{valign=t}{\includegraphics[width=10cm]{schematRPI.png}}
+\end{center}
+
+
+
