@@ -28,7 +28,10 @@ from google.assistant.library.event import EventType
 from google.assistant.library.file_helpers import existing_file
 
 
-def process_event(event):
+from commands_processor import CommandProcessor
+
+
+def process_event(cp, event):
     """Pretty prints events.
 
     Prints all events that occur with two spaces between each new
@@ -41,7 +44,13 @@ def process_event(event):
         print()
 
     print(event)
-
+    
+    if event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
+        try:
+            cp.read_command(event.args['text'])
+        except (NotImplementedError, StopIteration, ValueError) as e:
+            print(e)
+            
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
             event.args and not event.args['with_follow_on_turn']):
         print()
@@ -63,9 +72,10 @@ def main():
         credentials = google.oauth2.credentials.Credentials(token=None,
                                                             **json.load(f))
 
+    cp = CommandProcessor()
     with Assistant(credentials) as assistant:
         for event in assistant.start():
-            process_event(event)
+            process_event(cp, event)
 
 
 if __name__ == '__main__':
