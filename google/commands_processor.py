@@ -4,8 +4,7 @@ import time
 import subprocess
 from subprocess import CalledProcessError, check_output
 import _thread
-
-
+import os
 
 #additional functions
 def is_process_alive(process_name):
@@ -19,6 +18,10 @@ def is_process_alive(process_name):
         return True
     else:
         return False
+        
+        
+def play_sound(filename):
+    os.system("aplay sounds/"+filename)
 
 ##########
 
@@ -40,6 +43,8 @@ def play_yt(text):
     
     if is_process_alive("vlc"):
         return
+        
+    play_sound("im_on_it.wav")
     
     playshell = subprocess.Popen(["/usr/local/bin/mpsyt", ""], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     
