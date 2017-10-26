@@ -31,7 +31,7 @@ from google.assistant.library.file_helpers import existing_file
 from commands_processor import CommandProcessor
 
 
-def process_event(cp, event):
+def process_event(cp, event, assistant):
     """Pretty prints events.
 
     Prints all events that occur with two spaces between each new
@@ -47,8 +47,9 @@ def process_event(cp, event):
     
     if event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
         try:
-            cp.read_command(event.args['text'])
-        except (NotImplementedError, StopIteration, ValueError) as e:
+            if cp.read_command(event.args['text']):
+                assistant.stop_conversation()
+        except ValueError as e:
             print(e)
             
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
@@ -75,7 +76,7 @@ def main():
     cp = CommandProcessor()
     with Assistant(credentials) as assistant:
         for event in assistant.start():
-            process_event(cp, event)
+            process_event(cp, event, assistant)
 
 
 if __name__ == '__main__':

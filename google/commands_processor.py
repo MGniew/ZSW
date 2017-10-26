@@ -3,6 +3,7 @@ import RPi.GPIO as gpio
 import time
 import subprocess
 from subprocess import CalledProcessError, check_output
+import _thread
 
 
 
@@ -37,6 +38,9 @@ def print_text(text):
 	
 def play_yt(text):
     
+    if is_process_alive("vlc"):
+        return
+    
     playshell = subprocess.Popen(["/usr/local/bin/mpsyt", ""], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     
     playshell.stdin.write(bytes('/' + text + '\n1\n', 'utf-8'))
@@ -45,16 +49,13 @@ def play_yt(text):
     gpio.setmode(gpio.BCM)
     gpio.setup(23, gpio.IN, pull_up_down=gpio.PUD_UP)
     
-    print("waiting")
+    print("STARTING VLC...")
     while(not is_process_alive("vlc")):
         time.sleep(1)
-
         
-    print("playing")    
+    print("MUSIC IS PLAYING")    
     while(gpio.input(23) and is_process_alive("vlc")):
         time.sleep(1)
-                
-    print("quiting")
         
     subprocess.Popen(["/usr/bin/pkill", "vlc"], stdin=subprocess.PIPE)
     playshell.kill()
@@ -76,7 +77,7 @@ class CommandProcessor(object):
         try:
             command = next(x for x in self.commands if text.startswith(x[0]))
         except StopIteration as err:
-            raise StopIteration("EXCEPTION: Method not found")
+            return False
         
         text = text.replace(command[0], "", 1)
         text = text.strip()
@@ -85,13 +86,12 @@ class CommandProcessor(object):
         sig = signature(method)
         length = len(sig.parameters)
         if (length == 0):
-            return method()
+            return _thread.start_new_thread(method, ())
         elif (length == 1):
-            return method(text)
+            _thread.start_new_thread(method, (text,))
         else:
             raise ValueError("EXCEPTION: Trying to call a function with more than one parameter") 
         
-       
-	
         
+        return True
         
