@@ -29,6 +29,11 @@ from google.assistant.library.file_helpers import existing_file
 
 
 from commands_processor import CommandProcessor
+import RPi.GPIO as gpio
+
+
+gpio.setmode(gpio.BCM)
+gpio.setup(22, gpio.OUT)
 
 
 def process_event(cp, event, assistant):
@@ -42,6 +47,7 @@ def process_event(cp, event, assistant):
     """
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
         print()
+        gpio.output(22, True)
 
     print(event)
     
@@ -55,6 +61,7 @@ def process_event(cp, event, assistant):
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
             event.args and not event.args['with_follow_on_turn']):
         print()
+        gpio.output(22, False)
 
 
 def main():
