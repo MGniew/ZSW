@@ -12,4 +12,4 @@
 \contentsline {subsection}{\numberline {5.1.2}Instalacja Google Assistant}{11}{subsection.5.1.2}
 \contentsline {subsection}{\numberline {5.1.3}Opis pliku wej\IeC {\'s}ciowego}{11}{subsection.5.1.3}
 \contentsline {subsection}{\numberline {5.1.4}W\IeC {\l }asne komendy}{14}{subsection.5.1.4}
-\contentsline {chapter}{\numberline {6}Wnioski}{15}{chapter.6}
+\contentsline {chapter}{\numberline {6}Wnioski}{17}{chapter.6}
