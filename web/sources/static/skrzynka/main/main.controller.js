@@ -11,17 +11,25 @@
         var vm = this;
 
         vm.message = "You don't have any letters...";
+        vm.logo_path = "static/img/logo2.png";
+        vm.check = check;
         
         init();
 
         //////////////
 
         function init() {
+            check()
+        }
+
+        function check() {
             MainService.getMailboxStatus().then(function (response) {
                 if (response.data == "1") {
-                    vm.message = "You have new letters!"
+                    vm.message = "You have new letters!";
+                    vm.logo_path = "static/img/logo.png";
                 } else {
-                    vm.message = "You don't have any letters..."
+                    vm.message = "You don't have any letters...";
+                    vm.logo_path = "static/img/logo2.png";
                 }
             })
         }

@@ -1,9 +1,30 @@
-<div id="logo">
-    <img src="static/img/logo.png" width="25%"/>
-</div>
+<div ng-controller="MainController as vm">
+    <div class="jumbotron">
+        <h1 class="display-3">Skrzynka.</h1>
+        <p class="lead">Skrzynka. helps you with your mailbox - it checks if you have any letters.</p>
+        <p><a class="btn btn-lg btn-info" ng-click="vm.check()" role="button">Check it now!</a></p>
+        <div class="mailbox">
+            <div id="logo">
+                <img ng-src="{{vm.logo_path}}" width="25%"/>
+            </div>
 
-<div class="main-page-content" ng-controller="MainController as vm">
-  <p class="text-center">
-    {{ vm.message }}
-  </p>
+            <div>
+                <p class="text-center">
+                    {{ vm.message }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Time saving</h4>
+            <p>Now you don't have to check your mailbox by yourself. You have all information you need in a moment! </p>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Easy to use</h4>
+            <p>All you need is to click 'Check it now!' button!</p>
+        </div>
+    </div>
 </div>

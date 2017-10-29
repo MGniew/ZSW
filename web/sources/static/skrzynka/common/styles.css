@@ -1,88 +1,181 @@
-html {
-  position: relative;
-  min-height: 100%;
-}
+/*html {*/
+  /*position: relative;*/
+  /*min-height: 100%;*/
+/*}*/
 
+/*body {*/
+  /*margin-bottom: 30px;*/
+  /*background: url("../../img/background.jpg");*/
+  /*background-size: cover;*/
+/*}*/
+
+/*.container {*/
+    /*margin: 10%;*/
+/*}*/
+
+/*.footer {*/
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width: 100%;*/
+  /*height: 30px;*/
+/*}*/
+
+/*.footer p {*/
+  /*font-weight: bold;*/
+/*}*/
+
+/*.main-page-content {*/
+  /*width: 100%;*/
+/*}*/
+
+/*#logo img {*/
+    /*display: block;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+/*}*/
+
+/*#login-dp {*/
+    /*min-width: 250px;*/
+    /*padding: 14px 14px 0;*/
+    /*overflow: hidden;*/
+    /*background-color: rgba(255, 255, 255, .8);*/
+/*}*/
+
+/*#login-dp .help-block {*/
+    /*font-size: 12px*/
+/*}*/
+
+/*#login-dp .bottom {*/
+    /*background-color: rgba(255, 255, 255, .8);*/
+    /*border-top: 1px solid #ddd;*/
+    /*clear: both;*/
+    /*padding: 14px;*/
+/*}*/
+
+/*#login-dp .form-group {*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
+/*@media (max-width: 768px) {*/
+    /*#login-dp {*/
+        /*background-color: inherit;*/
+        /*color: #fff;*/
+    /*}*/
+
+    /*#login-dp .bottom {*/
+        /*background-color: inherit;*/
+        /*border-top: 0 none;*/
+    /*}*/
+/*}*/
+
+/*.user-panel a {*/
+    /*color: black !important;*/
+/*}*/
+
+/*.main-register {*/
+    /*background-color: #fff;*/
+    /*border-radius: 5px;*/
+
+    /*margin: 0 auto;*/
+    /*max-width: 330px;*/
+    /*padding: 40px 40px;*/
+/*}*/
+
+/* Space out content a bit */
 body {
-  margin-bottom: 30px;
-  background: url("../../img/background.jpg");
-  background-size: cover;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
-.container {
-    margin: 10%;
-}
-
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
-.footer p {
-  font-weight: bold;
+/* Custom page header */
+.header {
+    padding-bottom: 1rem;
+    border-bottom: .05rem solid #e5e5e5;
 }
 
-.main-page-content {
-  width: 100%;
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 3rem;
+    color: #00498f;
 }
 
-#logo img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+/* Custom page footer */
+.footer {
+    padding-top: 1.5rem;
+    color: #777;
+    border-top: .05rem solid #e5e5e5;
 }
 
-#login-dp {
-    min-width: 250px;
-    padding: 14px 14px 0;
-    overflow: hidden;
-    background-color: rgba(255, 255, 255, .8);
-}
-
-#login-dp .help-block {
-    font-size: 12px
-}
-
-#login-dp .bottom {
-    background-color: rgba(255, 255, 255, .8);
-    border-top: 1px solid #ddd;
-    clear: both;
-    padding: 14px;
-}
-
-#login-dp .form-group {
-    margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-    #login-dp {
-        background-color: inherit;
-        color: #fff;
-    }
-
-    #login-dp .bottom {
-        background-color: inherit;
-        border-top: 0 none;
+/* Customize container */
+@media (min-width: 48em) {
+    .container {
+        max-width: 46rem;
     }
 }
-
-.user-panel a {
-    color: black !important;
+.container-narrow > hr {
+    margin: 2rem 0;
 }
 
-.main-register {
-    background-color: #fff;
-    border-radius: 5px;
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: .05rem solid #e5e5e5;
+    box-shadow: 5px 5px 2px #ababab;
+}
+.jumbotron .btn {
+    padding: .75rem 1.5rem;
+    font-size: 1.5rem;
+    background-color: #00498f;
+    border-color: #0b3e6f;
+}
 
-    margin: 0 auto;
-    max-width: 330px;
-    padding: 40px 40px;
+/* Supporting marketing content */
+.marketing {
+    margin: 3rem 0;
+}
+.marketing p + h4 {
+    margin-top: 1.5rem;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 48em) {
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 2rem;
+    }
+
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
 }
 
 p.text-center {
-    font-size: 30px;
-    font-weight: bold;
-    font-family: "Courier New";
+    font-size: 24px;
+}
+
+.mailbox {
+    background-color: #e9e9e9;
+    color: #4b4b4b;
+    border-radius: 3%;
+    padding: 20px;
+    box-shadow: 5px 5px 2px #ababab;
 }

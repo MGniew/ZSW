@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ProjektSkrzynka">
+    <meta name="author" content="ProjektSkrzynka">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Skrzynka.</title>
     <link rel="stylesheet" type="text/css" href="static/skrzynka/common/styles.css"/>
@@ -10,27 +14,36 @@
 
 <body ng-app="skrzynka">
 
+
     <div class="container">
-          <div ng-view></div>
+        <header class="header clearfix">
+            <h3 class="text-muted">Skrzynka. <i class="fa fa-envelope" aria-hidden="true"></i></h3>
+        </header>
+
+        <main role="main">
+            <div class="container">
+                <div ng-view></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; Projekt Skrzynka. 2017</p>
+        </footer>
+
     </div>
 
-    <footer class="footer">
-      <div class="container">
-        <p class="text-center">Projekt Skrzynka. &copy; 2017</p>
-      </div>
-    </footer>
-
-    <script type="text/javascript" src="static/vendor/lodash/dist/lodash.min.js"></script>
-    <script type="text/javascript" src="static/vendor/moment/min/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="static/vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="static/vendor/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="static/vendor/tether/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="static/vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="static/vendor/angular/angular.min.js"></script>
-    <script type="text/javascript" src="static/vendor/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="static/vendor/angular-resource/angular-resource.min.js"></script>
     <script type="text/javascript" src="static/vendor/angular-route/angular-route.min.js"></script>
+
+
+    <!--<script type="text/javascript" src="static/vendor/lodash/dist/lodash.min.js"></script>-->
+    <!--<script type="text/javascript" src="static/vendor/moment/min/moment-with-locales.min.js"></script>-->
+    <!--<script type="text/javascript" src="static/vendor/tether/dist/js/tether.min.js"></script>-->
 
     <!-- App & Config -->
     <script src="static/skrzynka/app.js"></script>
