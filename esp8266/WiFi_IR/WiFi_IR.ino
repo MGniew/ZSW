@@ -16,14 +16,12 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
   WiFiConnect();
-  //WiFiDisconnect();
 }
 
 void loop() {
   Serial.println("Awaken");
   measurement();
   Serial.println("Going to sleep");
-  //delay(1000);
   ESP.deepSleep(30e6);
 }
 
@@ -31,48 +29,27 @@ void loop() {
 //IR//
 //////
 
-// Couting of recived signals
-int remote()  
-{  
-  int value = 0;  
-  int time = pulseIn(TSOPPin,LOW);  
-  //if(time>2000) // Checking if the Start Bit has been received. Start Bit Duration is 2.4ms  
-  {  
-   for(int counter1=0;counter1<12;counter1++) // A loop to receive the next 12 bits  
-   {  
-    if(pulseIn(TSOPPin,LOW)>1000) // checking the duration of each pulse, if it is a '1' then we use it in our binary to decimal conversion, '0's can be ignored.  
-    {  
-     value = value + (1<< counter1);// binary to decimail conversion. 1<< i is nothing but 2 raised to the power of i  
-    }  
-   }  
-  }  
-  return value;  
-}
-
 // Measurement IR
 void measurement() // funkcja pomiaru
 {
   digitalWrite(IRledPin, HIGH);
-  int resault = remote();
+  delay(100);
+  //int resault = remote();
+  int resault = pulseIn(TSOPPin,LOW,10000000);  //waiting 10 seconds for IR signal
   Serial.println(resault);
-  if ((resault==0 && !CurrentStatus) || (resault>0 && CurrentStatus)){
-    CurrentStatus = !CurrentStatus;
-    reaction();
-  }
   digitalWrite(IRledPin, LOW);
+  reaction(resault);
 }
 
 // Reaction if something in box
-void reaction(){
-  //WiFiConnect();
-  if(CurrentStatus){
+void reaction(int resault){
+  if(resault == 0){
     Serial.println("No empty BOX");
   }
   else{
     Serial.println("Empty BOX");
   }
-  //SendGET("0.0.0.0.500");
-  //WiFiDisconnect();
+  SendGET("0.0.0.0.500");
 }
 
 ////////
@@ -90,13 +67,6 @@ void WiFiConnect() {
     Serial.print(".");
   }
   Serial.println("WiFi connected");
-}
-
-// Disconnect to WiFi network
-void WiFiDisconnect() {
-  Serial.println("Disconnecting");
-  WiFi.disconnect();
-  Serial.println("Disconnected");
 }
 
 // Send GET to URL
