@@ -249,3 +249,95 @@ asystenta, czy nie. Zmienna ,,commands'' jest mapą słów kluczowych w komendac
 na funkcje, które w ramach danej komendy mają być wywołane. Metoda ,,read\_command'' sprawdza czy pierwsze słowa wypowiedzi użytkownika 
 znajdują się w zmiennej ,,commands''. Jeżeli tak, to w osobnym wątku wywoływana jest odpowiednia funkcja (przykłady funkcji można znaleźć wyżej w kodzie)
 i zwracana jest wartość True, jeżeli nie to zwracana jest wartość False.
+
+\section{ESP8266}
+
+\subsection{Projekt fizyczny}
+
+Na podstawie schematu (dostępnego w poprzednim rozdziale) został zbudowany prototyp czujników z nadajnikiem zbierający dane o stanie zapełnienia skrzynki.
+
+\subsection{Pierwsze użycie płytki i konfiguracja IDE}
+
+Przed pierwszym użyciem płytki jest zalecana zaktualizowanie jej firmware'u. Dobra instrukcja wykonania tego znajduje się na stronie \url{http://hobbyspace.pl/nodemcu-jak-wgrac-firmware/}.
+
+Do oprogramowania płytki zostało wykorzystane Arduino IDE (v.1.8.5). W celu uzyskania możliwości współpracy z wcześniej wspomnianym IDE konieczne było dodanie dodatkowego adresu URL dla menadżera płytek w zakładce preferencje. Oto wymagany tam link \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json}
+Po uzupełnieniu źródłem w Narzędzia->Płytka->Menedżer płytek możliwe stało się odnalezienie "ESP8266 Comunity" instalujemy najnowszą wersję (w naszym przypadku 2.3.0). Po tak przygotowanym IDE możliwe był przystąpienie do pracy.
+
+\subsection{Opis działania programu}
+
+Do oprogramowania płytki został przygotowany poniższy program.
+
+\begin{lstlisting} [language=C++]
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+
+const char* ssid = "*****";  // type your ssid
+const char* password = "*****";    // type your password
+WiFiClient client;
+
+int IRledPin = 4;                     // Dioda IR nadawcz
+int TSOPPin = 5;                      // Dioda TSOP odbiorcza
+
+//Start setup
+void setup() {
+	pinMode(TSOPPin, INPUT);
+	pinMode(IRledPin, OUTPUT);
+	digitalWrite(IRledPin, LOW);
+	WiFiConnect();
+}
+
+//Main loop
+void loop() {
+	measurement();
+	ESP.deepSleep(30e6); // 30e6 is 30 microseconds
+}
+
+//////
+//IR//
+//////
+
+// Measurement IR
+void measurement()
+{
+	digitalWrite(IRledPin, HIGH);
+	int resault = pulseIn(TSOPPin,LOW,10000000);  //waiting 10 seconds for IR signal
+	digitalWrite(IRledPin, LOW);
+	reaction(resault);
+}
+
+// Reaction box measurement
+void reaction(int resault){
+	if(resault == 0){
+		SendGET("0.0.0.0.500");
+	}
+	else{
+		SendGET("0.0.0.0.501");
+	}
+}
+
+////////
+//WiFi//
+////////
+
+// Connect to WiFi network
+void WiFiConnect() {
+	WiFi.mode(WIFI_AP_STA);
+	WiFi.begin(ssid, password);
+	while (WiFi.status() != WL_CONNECTED) {
+		delay(500);
+	}
+}
+
+// Send GET request to URL
+void SendGET(String URL)
+{
+	HTTPClient http;
+	
+	http.begin(URL);  //Specify request destination
+	http.GET();       //Send the request (returning code 
+	http.end();
+}
+\end{lstlisting}
+
+Opisując kolejno w głównej pętli programu \textit{loop} posiadamy dwie funkcje, pierwsza z nich to funkcja własna odpowiadająca za pomiar oraz systemową ESP.deepSleep(time). Ta właśnie funkcja korzysta z wspomnianego w poprzednim rozdziale połączenia pinów GPIO16 oraz RST, pozwalając uśpić 
+płytkę na określony w jej parametrze czas, umożliwiając w ten sposób oszczędzenie baterii. Natomiast funkcja \textit{measurement} odpala nam diodę IR, przez 10s nasłuchuje na czujniku czy odbiera sygnał IR. Wynik tego pomiaru jest przekazywany funkcji \textit{reactrion}, która w zależności od parametru wysyła na nasz serwer zapytanie GET albo z parametrem mówiącym o posiadaniu poczty lub też nie.

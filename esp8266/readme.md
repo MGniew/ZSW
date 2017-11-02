@@ -5,7 +5,7 @@ PRZYGOTOWANIE
 
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
-3. Wchodzimy w Narzêcia->P³ytka->Mened¿er p³ytek...
+3. Wchodzimy w Narzêdzia->P³ytka->Mened¿er p³ytek...
 4. Wyszukujemy ESP8266 Comunity i instalujemy najnowsz¹ wersjê (u mnie 2.3.0)
 5. Przed pierwszym uruchomieniem p³ytki zalecana jest aktualizacja firmware'u wed³ug instrukcji na stronie:
 

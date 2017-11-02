@@ -30,7 +30,7 @@ void loop() {
 //////
 
 // Measurement IR
-void measurement() // funkcja pomiaru
+void measurement()
 {
   digitalWrite(IRledPin, HIGH);
   delay(100);

@@ -38,4 +38,31 @@ Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych el
 \end{center}
 
 
+\section{ESP8266}
+
+Drugim najważniejszym fizycznym elementem naszego projektu jest moduł ESP8266. Do modułu zostanie podpięty nadajnik i odbiornik IR, a badane będzie przecięcie wiązki zmierzającej z pierwszego z wspomnianych urządzeń do drugiego. Sam moduł zostanie oprogramowany na odczyt danych z czujników IR i w zależności od wyniku pomiarów wysyłać będzie informacje do serwera o stanie skrzynki pocztowej. W finalnej wersji moduł wraz z nadajnikiem i odbiornikiem będą zamontowane w skrzynce pocztowej.
+\subsection{Spis urządzeń}
+
+\begin{enumerate}
+	\item ESP8266 z ModeMCU v3 \\
+	\begin{center}
+		\adjustbox{valign=t}{\includegraphics[width=10cm]{esp8266-nodemcu-v3.jpg}}
+	\end{center}
+	\item Odbiornik TSOP4836 \\
+	\begin{center}
+		\adjustbox{valign=t}{\includegraphics[width=10cm]{tsop4836.jpg}}
+	\end{center}
+	\item Nadajnik IR LIRED5C \\
+	\begin{center}
+		\adjustbox{valign=t}{\includegraphics[width=10cm]{LIRED5C.jpg}}
+	\end{center}
+\end{enumerate}
+
+\subsection{Schemat połączeń}
+
+Poniższy schemat przedstawia układ połączeń wyżej wymienionych elementów. Warto zwrócić uwagę na połączenie piny GPIO\_16 z pinem REST, pozwoli ono w późniejszym etapie projektu przełączać moduł ESP w tryb głębokiego snu, co pozwoli na oszczędzanie energii.
+
+\begin{center}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{schematWiFI_IR.png}}
+\end{center}
 
