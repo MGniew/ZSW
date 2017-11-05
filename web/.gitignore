@@ -1,2 +1,4 @@
 .idea
 sources/static/vendor
+node_modules/
+*.pyc

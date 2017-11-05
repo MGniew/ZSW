@@ -29,6 +29,18 @@ def play_sound(filename):
 
 #custom commands:
 
+def mailbox():
+    
+    #proc = subprocess.Popen(["curl 192.168.1.3:5000/state", ""], stdin=subprocess.PIPE)
+    #state = proc.stdout.read()
+    state = os.popen("curl 192.168.1.3:5000/state").read()
+
+    if state == "0":
+        play_sound("noletters2.wav")
+    else:
+        play_sound("letters2.wav")
+    
+
 def print_hello(text):
     print("hello")
     
@@ -74,7 +86,8 @@ class CommandProcessor(object):
     ("hello", print_hello),
     ("bye", print_bye),
     ("print", print_text),
-    ("play", play_yt)
+    ("play", play_yt),
+    ("check my mailbox", mailbox)
     ]
     
 	
