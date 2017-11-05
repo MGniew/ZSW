@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid = "TP-LINK_DAFFBA";  // type your ssid
-const char* password = "67DAFFBA";    // type your password
+const char* ssid = "Mateg";  // type your ssid
+const char* password = "hesianr1";    // type your password
 WiFiClient client;
 
 int IRledPin = 4;                     // Dioda IR nadawcz
@@ -44,12 +44,13 @@ void measurement()
 // Reaction if something in box
 void reaction(int resault){
   if(resault == 0){
+    SendGET("1");
     Serial.println("No empty BOX");
   }
   else{
+    SendGET("0");
     Serial.println("Empty BOX");
   }
-  SendGET("0.0.0.0.500");
 }
 
 ////////
@@ -70,12 +71,28 @@ void WiFiConnect() {
 }
 
 // Send GET to URL
-void SendGET(String URL)
+void SendGET(String Data)
 {
+ if(WiFi.status()== WL_CONNECTED){
+  String URL = "http://192.168.1.3:5000/state/"+Data;
+  Serial.println(URL);
   HTTPClient http;
 
   http.begin(URL);  //Specify request destination
-  http.GET();       //Send the request (returning code 
+  http.addHeader("Content-Type", "text/plain");  //Specify content-type header
+  int httpCode = http.POST(Data);       //Send the request (returning code
+//  int httpCode = http.GET();
+  String payload = http.getString();                  //Get the response payload 
+   Serial.print("HTTP code ");    //Print HTTP return code
+   Serial.println(httpCode);   //Print HTTP return code
+   Serial.print("HTTP response ");   //Print request response payload
+   Serial.println(payload);    //Print request response payload
   http.end();
+  
+ }else{
+ 
+    Serial.println("Error in WiFi connection");   
+ 
+ }
 }
 
