@@ -12,9 +12,9 @@ def get_state():
     return mailbox.mailbox_state
 
 
-@app.route("/state/change")
-def state_changed():
-    mailbox.mailbox_state = "0" if mailbox.mailbox_state == "1" else "1"
+@app.route("/state/<state>", methods=['POST'])
+def state_changed(state):
+    mailbox.mailbox_state = state
     return mailbox.mailbox_state
 
 if __name__ == "__main__":

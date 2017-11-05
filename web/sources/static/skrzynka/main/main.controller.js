@@ -24,7 +24,7 @@
 
         function check() {
             MainService.getMailboxStatus().then(function (response) {
-                if (response.data == "1") {
+                if (response.data == 1) {
                     vm.message = "You have new letters!";
                     vm.logo_path = "static/img/logo.png";
                 } else {
