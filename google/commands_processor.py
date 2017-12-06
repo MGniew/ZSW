@@ -31,9 +31,9 @@ def play_sound(filename):
 
 def mailbox():
     
-    #proc = subprocess.Popen(["curl 192.168.1.3:5000/state", ""], stdin=subprocess.PIPE)
+    #proc = subprocess.Popen(["curl 10.0.0.2:5000/state --max-time 5 --connection-timeout 5", ""], stdin=subprocess.PIPE)
     #state = proc.stdout.read()
-    state = os.popen("curl 192.168.1.3:5000/state").read()
+    state = os.popen("curl 10.0.0.2:5000/state").read()
 
     if state == "0":
         play_sound("noletters2.wav")
@@ -92,6 +92,8 @@ class CommandProcessor(object):
     
 	
     def read_command(self, text):
+
+        text = text.lower()
         try:
             command = next(x for x in self.commands if text.startswith(x[0]))
         except StopIteration as err:
