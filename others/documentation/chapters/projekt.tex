@@ -66,3 +66,63 @@ Poniższy schemat przedstawia układ połączeń wyżej wymienionych elementów.
 	\adjustbox{valign=t}{\includegraphics[width=10cm]{schematWiFI_IR.png}}
 \end{center}
 
+\section{Serwer}
+
+Następną częścią projektu jest serwer oparty o technologię \textit{Flask}. Pozwala on na komunikację pomiędzy \textit{ESP8266}, \textit{Google Assistantem} oraz aplikacją webową.\\
+
+Serwer jest uruchamiany na \textit{Raspberry PI}, na porcie 5000 i udostępnia klientom dwa \textit{endpointy}. Jeden z nich pozwala na pobranie aktualnego stanu skrzynki pocztowej, drugi - na jego zmianę. \\
+
+Stan skrzynki jest zapisywany w pliku, w postaci:
+\begin{itemize}
+\item 0 - gdy skrzynka jest pusta
+\item 1 - gdy w skrzynce mamy jakieś wiadomości
+\end{itemize}
+
+W przypadku, jeśli na \textit{Raspberry PI} nie ma wymaganych przez serwer zależności (Flask w wersji 0.10.1) należy wywołać:
+\begin{lstlisting}
+pip install -r requirements.txt
+\end{lstlisting}
+
+Uruchamianie serwera następuje przez wywołanie:
+\begin{lstlisting}
+python run.py
+\end{lstlisting}
+
+
+\section{Aplikacja webowa}
+
+\begin{center}
+	\label{img:skrzynka}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka.png}}
+\end{center}
+
+Aplikacja webowa pozwala na sprawdzenie aktualnego stanu skrzynki pocztowej. Jest widoczna na rysunkach \ref{img:skrzynka} i \ref{img:skrzynka2}.
+Logika aplikacji została stworzona w języku \textit{Java Script} wraz z \textit{AngularJS}, natomiast widok to \textit{HTML5} wraz z arkuszami stylów (\textit{CSS}).\\
+
+Składa się z trzech głównych części:
+\begin{itemize}
+\item widoku - który określa elementy, jakie są obecne na stronie
+\item kontrolera - który odpowiada za logikę w aplikacji (wykorzystuje serwis do wysyłania zapytań do serwera)
+\item serwisu - który wysyła zapytanie \textbf{GET /state} na adres serwera
+\end{itemize}
+
+Na stronie dostępny jest przycisk \textbf{Check it now!} (ang. \textit{Wypróbuj już teraz!}), który wywołuje metodę kontrolera odpowiedzialną za wykonanie zapytania do serwera przez serwis.
+
+Uruchomienie serwera \textit{node.js} z parametrem wskazującym na ścieżkę do pliku \textbf{server.js}:
+\begin{lstlisting}
+node server.js
+\end{lstlisting}
+
+W przypadku, jeśli na \textit{Raspberry PI} nie ma wymaganych przez aplikację zależności należy wywołać:
+\begin{lstlisting}
+bower install
+npm install connect
+npm install serve-static
+\end{lstlisting}
+i później uruchomić serwer \textit{node.js}.
+
+\begin{center}
+	\label{img:skrzynka2}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka2.png}}
+\end{center}
+

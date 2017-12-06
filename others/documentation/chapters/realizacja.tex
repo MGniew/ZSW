@@ -344,3 +344,88 @@ void SendPOST(String URL)
 \end{lstlisting}
 
 W głównej pętli programu wywołujemy dwie funkcje: \emph{measurement} i \emph{deepSleep}. Pierwsza z nich jest funkcją własną odpowiedzialną za pomiar. Uruchamia ona nadajnik i odbiornik podczerwieni, po czym, na podstawie zebranych danych , ustala, czy w skrzynce znajdują się listy (list powinien przecinać wiązkę podczerwieni). Następnie informacja o stanie skrzynki jest wysyłana do serwera (funkcja \emph{reaction}). Druga metoda jest metodą systemową, która (jak zostało to opisane w poprzednim rozdziale) pozwala uśpić płytkę na określony czas.
+
+\section{Serwer}
+
+Serwer uruchamia się za pomocą skryptu \textbf{run.py}, który wywołuje metodę \textbf{run} z frameworku \textit{Flask} i wygląda następująco:
+
+\begin{lstlisting}
+if __name__ == "__main__":
+    app.run(debug=True, host='<ip>', processes=5)
+\end{lstlisting}
+
+Zwiększona liczba procesów była niezbędna, aby serwer poprawnie obsługiwał kolejne, nowo przychodzące połączenia od \textit{ESP8266}.
+
+Następnie określono \textit{endpointy} zwracające stan skrzynki (\textbf{GET /state}) oraz zmieniające go (\textbf{POST /state/[state]}):
+
+\begin{lstlisting}
+@app.route("/state")
+def get_state():
+    response = Response(mailbox.get_state())
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
+@app.route("/state/<state>", methods=['POST'])
+def state_changed(state):
+    mailbox.set_state(state)
+    return mailbox.get_state()
+\end{lstlisting}
+
+Mailbox jest klasą, która pozwala na odczyt i zapis do pliku przechowującego informacje o skrzynce pocztowej. \\
+
+Dodanie nagłówka \textbf{Access-Control-Allow-Origin} do zapytania pobierającego stan, było niezbędne do tego, aby aplikacja webowa mogła bez przeszkód pobierać dane. Jest to spowodowane \textbf{Cross Domain Policy}, które zwykle blokuje takie akcje.
+
+\section{Aplikacja webowa}
+
+Składa się z trzech głównych części:
+\begin{itemize}
+\item widoku - który określa elementy, jakie są obecne na stronie
+\item kontrolera - który odpowiada za logikę w aplikacji (wykorzystuje serwis do wysyłania zapytań do serwera)
+\item serwisu - który wysyła zapytanie \textbf{GET /state} na adres serwera
+\end{itemize}
+
+Wysyłanie zapytania wygląda następująco:
+\begin{lstlisting}
+function getMailboxStatus() {
+            return $http.get("http://<serwer_ip>:5000/state")
+                .then(handleResponse())
+                .catch(handleError('An error occurred while getting user data by session:'));
+        }
+\end{lstlisting}
+
+Serwer zwraca 0 albo 1 i w zależności od tej wartości na stronie jest wyświetlany komunikat o dostępnych listach lub o ich braku (wraz ze stosownym rysunkiem).
+
+Funkcja kontrolera, która jest wywoływana po naciśnięciu przycisku:
+
+\begin{lstlisting}
+function check() {
+            MainService.getMailboxStatus().then(function (response) {
+                if (response.data == 1) {
+                    vm.message = "You have new letters!";
+                    vm.logo_path = "static/img/logo.png";
+                } else {
+                    vm.message = "You don't have any letters...";
+                    vm.logo_path = "static/img/logo2.png";
+                }
+            })
+        }
+\end{lstlisting}
+
+\begin{itemize}
+\item \textit{MainService} -  serwis w aplikacji webowej.
+\item \textit{getMailboxStatus()} - wywołanie metody wysyłającej zapytanie do serwera
+\end{itemize}
+
+W ramach funkcji \textbf{check()} przedstawionej na powyższym listeningu, w zależności od odpowiedzi, wyświetlamy komunikat \textit{You have new letters!} i rysunek skrzynki pocztowej pełnej listów lub \textit{You don't have any letters...} z rysunkiem pustej skrzynki.\\
+
+Ważną kwestią jest uruchomienie aplikacji webowej z wykorzystaniem serwera \textit{node.js}.
+W tym celu został stworzony prosty skrypt \textbf{server.js}, który uruchamia aplikację na porcie 8080, w następujący sposób:
+\begin{lstlisting}
+var connect = require('connect');
+var serveStatic = require('serve-static');
+connect().use(serveStatic(__dirname)).listen(8080, function(){
+	console.log("Server running on 8080");
+});
+\end{lstlisting}
+
