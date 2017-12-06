@@ -254,18 +254,17 @@ i zwracana jest wartość True, jeżeli nie to zwracana jest wartość False.
 
 \subsection{Projekt fizyczny}
 
-Na podstawie schematu (dostępnego w poprzednim rozdziale) został zbudowany prototyp czujników z nadajnikiem zbierający dane o stanie zapełnienia skrzynki.
+Na podstawie schematu (dostępnego w poprzednim rozdziale) został zbudowany prototyp zbierający dane o stanie zapełnienia skrzynki.
 
 \subsection{Pierwsze użycie płytki i konfiguracja IDE}
 
-Przed pierwszym użyciem płytki jest zalecana zaktualizowanie jej firmware'u. Dobra instrukcja wykonania tego znajduje się na stronie \url{http://hobbyspace.pl/nodemcu-jak-wgrac-firmware/}.
+Przed pierwszym użyciem płytki zalecane jest zaktualizowanie jej firmware'u. Instrukcja wykonania tego znajduje się na stronie \url{http://hobbyspace.pl/nodemcu-jak-wgrac-firmware/}.
 
-Do oprogramowania płytki zostało wykorzystane Arduino IDE (v.1.8.5). W celu uzyskania możliwości współpracy z wcześniej wspomnianym IDE konieczne było dodanie dodatkowego adresu URL dla menadżera płytek w zakładce preferencje. Oto wymagany tam link \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json}
-Po uzupełnieniu źródłem w Narzędzia$->$Płytka$->$Menedżer płytek możliwe stało się odnalezienie "ESP8266 Comunity" instalujemy najnowszą wersję (w naszym przypadku 2.3.0). Po tak przygotowanym IDE możliwe było przystąpienie do pracy.
+Do oprogramowania płytki zostało wykorzystane Arduino IDE (v.1.8.5). W celu uzyskania możliwości współpracy z wcześniej wspomnianym IDE konieczne było dodanie nowego adresu URL dla menadżera płytek w zakładce preferencje - dzięki temu możliwe było pobranie odpowiednich bibliotek obsługujących moduł \emph{ESP}. Oto wymagany tam link \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json}.
 
 \subsection{Opis działania programu}
 
-Do oprogramowania płytki został przygotowany poniższy program.
+Poniżej przedstawiono program, który ma zostać uruchomiony na płytce \emph{ESP}.
 
 \begin{lstlisting} [language=C++]
 #include <ESP8266WiFi.h>
@@ -315,11 +314,9 @@ void reaction(int resault){
 		SendPOST("0");
 	}
 }
-
 ////////
 //WiFi//
 ////////
-
 // Connect to WiFi network
 void WiFiConnect() {
 	WiFi.mode(WIFI_AP_STA);
@@ -328,7 +325,6 @@ void WiFiConnect() {
 		delay(500);
 	}
 }
-
 // Send POST request to URL
 void SendPOST(String URL)
 {
@@ -347,5 +343,4 @@ void SendPOST(String URL)
 }
 \end{lstlisting}
 
-Opisując kolejno w głównej pętli programu \textit{loop} posiadamy dwie funkcje, pierwsza z nich to funkcja własna odpowiadająca za pomiar oraz systemową ESP.deepSleep(time). Ta właśnie funkcja korzysta z wspomnianego w poprzednim rozdziale połączenia pinów GPIO16 oraz RST, pozwalając uśpić 
-płytkę na określony w jej parametrze czas, umożliwiając w ten sposób oszczędzenie baterii. Natomiast funkcja \textit{measurement} odpala nam diodę IR, przez 10s nasłuchuje na czujniku czy odbiera sygnał IR. Wynik tego pomiaru jest przekazywany funkcji \textit{reactrion}, która w zależności od parametru wysyła na nasz serwer zapytanie POST albo z parametrem mówiącym o posiadaniu poczty lub też nie.
+W głównej pętli programu wywołujemy dwie funkcje: \emph{measurement} i \emph{deepSleep}. Pierwsza z nich jest funkcją własną odpowiedzialną za pomiar. Uruchamia ona nadajnik i odbiornik podczerwieni, po czym, na podstawie zebranych danych , ustala, czy w skrzynce znajdują się listy (list powinien przecinać wiązkę podczerwieni). Następnie informacja o stanie skrzynki jest wysyłana do serwera (funkcja \emph{reaction}). Druga metoda jest metodą systemową, która (jak zostało to opisane w poprzednim rozdziale) pozwala uśpić płytkę na określony czas.

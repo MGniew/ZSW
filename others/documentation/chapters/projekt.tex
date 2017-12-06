@@ -40,7 +40,7 @@ Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych el
 
 \section{ESP8266}
 
-Drugim najważniejszym, fizycznym elementem naszego projektu jest moduł ESP8266. Do modułu zostanie podpięty nadajnik i odbiornik IR, a badane będzie przecięcie wiązki zmierzającej z pierwszego z wspomnianych urządzeń do drugiego. Sam moduł zostanie oprogramowany na odczyt danych z czujników IR i w zależności od wyniku pomiarów wysyłać będzie informacje do serwera o stanie skrzynki pocztowej. W finalnej wersji moduł wraz z nadajnikiem i odbiornikiem będą zamontowane w skrzynce pocztowej.
+Drugim kluczowym elementem naszego projektu jest układ wykorzystujący moduł \emph{ESP8266}. Zostanie do niego podłączony nadajnik IR, odbiornik IR i bateria. Gdy odczyt sygnału, nadawanego przez pierwsze z urządzeń, nie będzie możliwy, znaczy to, że na drodze wiązki znajduje się jakaś przeszkoda - w założeniach ma to być list. Moduł zostanie oprogramowany tak aby, co jakiś ustalony czas, wysyłać do serwera informacje o odczycie. W finalnej wersji układ ma zostać zamontowany w skrzynce.
 \subsection{Spis urządzeń}
 
 \begin{enumerate}
@@ -60,7 +60,7 @@ Drugim najważniejszym, fizycznym elementem naszego projektu jest moduł ESP8266
 
 \subsection{Schemat połączeń}
 
-Poniższy schemat przedstawia układ połączeń wyżej wymienionych elementów. Warto zwrócić uwagę na połączenie piny GPIO\_16 z pinem REST, pozwoli ono w późniejszym etapie projektu przełączać moduł ESP w tryb głębokiego snu, co pozwoli na oszczędzanie energii.
+Poniższy schemat przedstawia układ połączeń wyżej wymienionych elementów. Warto zwrócić uwagę na połączenie pinu GPIO\_16 z pinem REST. Pozwoli to przełączać moduł ESP w tryb głębokiego snu - pozwoli to na oszczędzanie baterii.
 
 \begin{center}
 	\adjustbox{valign=t}{\includegraphics[width=10cm]{schematWiFI_IR.png}}
