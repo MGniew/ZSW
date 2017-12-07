@@ -5,36 +5,44 @@ Głównym elementem naszego projektu jest mikrokomputer Raspberry Pi 3 w wersji 
 
 \subsection{Spis urządzeń}
 
-\begin{enumerate}
-\item Raspberry Pi 3 w wersji B \\
-	\begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{rpi.jpg}}
-	\end{center}
-\item Zewnętrzna karta dżwiękowa Virtual 7.1 Channel USB \\
-	\begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{karta_muzyczna.jpg}}
-	\end{center}
-\item Głośnik 3W 8Ohm 40x88mm \\
-	\begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{glosnik.jpg}}
-	\end{center}
-\item Wzmacniacz audio stereo PAM8403 5V 3W - dwukanałowy \\
-	\begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{wzmacniacz.jpg}}
-	\end{center}
-\item Przycisk Arcade Push Button niebieski z podświetleniem \\
-	\begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{button.jpg}}
-	\end{center}
-\item mikrofon
-\end{enumerate}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=8cm]{rpi.jpg}
+	\caption{Raspberry Pi 3 w wersji B}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=8cm]{karta_muzyczna.jpg}
+	\caption{Zewnętrzna karta dżwiękowa Virtual 7.1 Channel USB }
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=8cm]{glosnik.jpg}
+	\caption{Głośnik 3W 8Ohm 40x88mm}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=8cm]{wzmacniacz.jpg}
+	\caption{Wzmacniacz audio stereo PAM8403 5V 3W - dwukanałowy}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=8cm]{button.jpg}
+	\caption{Rrzycisk Arcade Push Button niebieski z podświetleniem}
+	\end{figure}
+
+Dodatkowo zostanie wykorzystany mikrofon wykorzystujący złącze typu \emph{mini jack}.
 
 \subsection{Schemat połączeń}
 
 Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych elementów. Rezystancje oporników mogą się różnić ze względu na wykorzystany tranzystor i rodzaj diody świecącej. W większości przypadków układ typu "klucz npn" nie będzie potrzebny, gdyż napięcie przewodzenia diody może okazać na tyle niskie, że będzie możliwe zasilenie jej z portu GPIO (niestety nie było tak w naszym przypadku).
 
 \begin{center}
-\adjustbox{valign=t}{\includegraphics[width=10cm]{schematRPI.png}}
+\adjustbox{valign=t}{\includegraphics[width=8cm]{schematRPI.png}}
 \end{center}
 
 
@@ -43,27 +51,33 @@ Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych el
 Drugim kluczowym elementem naszego projektu jest układ wykorzystujący moduł \emph{ESP8266}. Zostanie do niego podłączony nadajnik IR, odbiornik IR i bateria. Gdy odczyt sygnału, nadawanego przez pierwsze z urządzeń, nie będzie możliwy, znaczy to, że na drodze wiązki znajduje się jakaś przeszkoda - w założeniach ma to być list. Moduł zostanie oprogramowany tak aby, co jakiś ustalony czas, wysyłać do serwera informacje o odczycie. W finalnej wersji układ ma zostać zamontowany w skrzynce.
 \subsection{Spis urządzeń}
 
-\begin{enumerate}
-	\item ESP8266 z ModeMCU v3 \\
-	\begin{center}
-		\adjustbox{valign=t}{\includegraphics[width=10cm]{esp8266-nodemcu-v3.jpg}}
-	\end{center}
-	\item Odbiornik TSOP4836 \\
-	\begin{center}
-		\adjustbox{valign=t}{\includegraphics[width=10cm]{tsop4836.jpg}}
-	\end{center}
-	\item Nadajnik IR LIRED5C \\
-	\begin{center}
-		\adjustbox{valign=t}{\includegraphics[width=10cm]{LIRED5C.jpg}}
-	\end{center}
-\end{enumerate}
+
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=7cm]{esp8266-nodemcu-v3.jpg}
+	\caption{ESP8266 z ModeMCU v3}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=7cm]{tsop4836.jpg}
+	\caption{Odbiornik TSOP4836 }
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=7cm]{LIRED5C.jpg}
+	\caption{Nadajnik IR LIRED5C}
+	\end{figure}
 
 \subsection{Schemat połączeń}
 
 Poniższy schemat przedstawia układ połączeń wyżej wymienionych elementów. Warto zwrócić uwagę na połączenie pinu GPIO\_16 z pinem REST. Pozwoli to przełączać moduł ESP w tryb głębokiego snu - pozwoli to na oszczędzanie baterii.
 
 \begin{center}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{schematWiFI_IR.png}}
+	\adjustbox{valign=t}{\includegraphics[width=8cm]{schematWiFI_IR.png}}
 \end{center}
 
 \section{Serwer}
@@ -93,10 +107,10 @@ python run.py
 
 \begin{center}
 	\label{img:skrzynka}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka.png}}
+	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka2.png}}
 \end{center}
 
-Aplikacja webowa pozwala na sprawdzenie aktualnego stanu skrzynki pocztowej. Jest widoczna na rysunkach \ref{img:skrzynka} i \ref{img:skrzynka2}.
+Aplikacja webowa pozwala na sprawdzenie aktualnego stanu skrzynki pocztowej. Jest widoczna na rysunkach \ref{img:skrzynka}.
 Logika aplikacji została stworzona w języku \textit{Java Script} wraz z \textit{AngularJS}, natomiast widok to \textit{HTML5} wraz z arkuszami stylów (\textit{CSS}).\\
 
 Składa się z trzech głównych części:
@@ -120,9 +134,11 @@ npm install connect
 npm install serve-static
 \end{lstlisting}
 i później uruchomić serwer \textit{node.js}.
-
-\begin{center}
-	\label{img:skrzynka2}
-	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka2.png}}
-\end{center}
+%
+%	\begin{figure}
+%	\centering
+%	\label{img:skrzynka2}
+%	\includegraphics[width=10cm]{skrzynka2.png}
+%	\caption{skrzynka2}
+%	\end{figure}
 
