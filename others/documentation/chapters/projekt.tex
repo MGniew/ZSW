@@ -1,7 +1,27 @@
+\section{Projekt systemu}
+\begin{center}
+	\label{img:system}
+	\adjustbox{valign=t}{\includegraphics[width=12cm]{schemat.png}}
+\end{center}
+Rysunek \ref{img:system} przedstawia ogólny schemat opisywanego projektu.
+Jego kolejne części są opisane w poniższych sekcjach:
+\begin{itemize}
+\item część RPI + Google Assistant w sekcji \textit{Raspberry Pi - Google Assistant}
+\item część z ESP8266 w sekcji \textit{ESP8266}
+\item serwer w sekcji \textit{Serwer}
+\item aplikacja webowa w sekcji \textit{Aplikacja webowa}
+\end{itemize}
+
 
 \section{Raspberry Pi - Google Assistant}
 
 Głównym elementem naszego projektu jest mikrokomputer Raspberry Pi 3 w wersji B. Zostanie na nim zainstalowany serwer aplikacji webowej (omówiony w rozdziale <tu wstaw rozdział> i Google Assistant. W niniejszej części dokumentu zostanie omówiony projekt bezpośredniego połączenia Raspberry Pi z urządzeniami zewnętrznymi (takimi jak głośnik, mikrofon) stanowiącymi razem pewną integralną całość, w założeniu mającą znaleźć się w jednej obudowie. Zdalny moduł wykorzystujący ESP8266 zostanie omówiony w innej części tego dokumentu.
+
+\begin{center}
+	\label{img:google}
+	\adjustbox{valign=t}{\includegraphics[width=14cm]{google.png}}
+\end{center}
+Rysunek \ref{img:google} przedstawia schemat części opartej o RPI i Google Assistanta.
 
 \subsection{Spis urządzeń}
 
@@ -86,6 +106,24 @@ Następną częścią projektu jest serwer oparty o technologię \textit{Flask}.
 
 Serwer jest uruchamiany na \textit{Raspberry PI}, na porcie 5000 i udostępnia klientom dwa \textit{endpointy}. Jeden z nich pozwala na pobranie aktualnego stanu skrzynki pocztowej, drugi - na jego zmianę. \\
 
+REST API udostępniane przez serwer jest przedstawione w tabeli \ref{tab:api}.
+
+\begin{longtable}{|c|c|c|p{4cm}|}
+\caption{Serwer REST API} \label{tab:api} \\ \hline
+\multicolumn{4}{ |c| }{ Skrzynka pocztowa } \\ \hline
+\multicolumn{4}{ |c| }{ /state } \\ \hline
+Endpoint & Request & Opis & Dodatkowo \\ \hline
+/state & GET & Pobranie informacji o stanie skrzynki & Rezultat: 0 - pusta skrzynka, 1 - pełna \\ \hline
+/state/[state] & POST & Zmiana stanu na [state] & state może przyjąć wartości: 0 lub 1 \\ \hline
+\end{longtable} 
+
+\begin{center}
+	\label{img:serwer_class}
+	\adjustbox{valign=t}{\includegraphics[width=6cm]{serwer_class.png}}
+\end{center}
+
+Serwer korzysta z klasy Mailbox, która udostępnia dwie metody: do pobrania stanu skrzynki i do ustawienia stanu skrzynki. Więc o obu metodach można znaleźć w rozdziale 5 \textit{Realizacja}. Diagram klasy jest widoczny na rysunku \ref{img:serwer_class}
+
 Stan skrzynki jest zapisywany w pliku, w postaci:
 \begin{itemize}
 \item 0 - gdy skrzynka jest pusta
@@ -121,6 +159,13 @@ Składa się z trzech głównych części:
 \end{itemize}
 
 Na stronie dostępny jest przycisk \textbf{Check it now!} (ang. \textit{Wypróbuj już teraz!}), który wywołuje metodę kontrolera odpowiedzialną za wykonanie zapytania do serwera przez serwis.
+
+\begin{center}
+	\label{img:web_diagram}
+	\adjustbox{valign=t}{\includegraphics[width=14cm]{web_diagram.png}}
+\end{center}
+
+Rysunek przedstawiony wyżej (\textit{Schemat działania aplikacji webowej}) przedstawia schemat działania aplikacji webowej.
 
 Uruchomienie serwera \textit{node.js} z parametrem wskazującym na ścieżkę do pliku \textbf{server.js}:
 \begin{lstlisting}
