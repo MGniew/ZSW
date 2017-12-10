@@ -15,13 +15,14 @@ Jego kolejne części są opisane w poniższych sekcjach:
 
 \section{Raspberry Pi - Google Assistant}
 
-Głównym elementem naszego projektu jest mikrokomputer Raspberry Pi 3 w wersji B. Zostanie na nim zainstalowany serwer aplikacji webowej (omówiony w rozdziale <tu wstaw rozdział> i Google Assistant. W niniejszej części dokumentu zostanie omówiony projekt bezpośredniego połączenia Raspberry Pi z urządzeniami zewnętrznymi (takimi jak głośnik, mikrofon) stanowiącymi razem pewną integralną całość, w założeniu mającą znaleźć się w jednej obudowie. Zdalny moduł wykorzystujący ESP8266 zostanie omówiony w innej części tego dokumentu.
+Głównym elementem naszego projektu jest mikrokomputer Raspberry Pi 3 w wersji B. Zostanie na nim zainstalowany serwer aplikacji webowej (omówiony w punkcie 4.4), aplikacja webowa (punkt 4.5) i aplikacja wykorzystująca Google Assistant. W niniejszej części dokumentu zostanie omówiony projekt bezpośredniego połączenia Raspberry Pi z urządzeniami zewnętrznymi (takimi jak głośnik, mikrofon) stanowiącymi razem pewną integralną całość w założeniu mającą znaleźć się w jednej obudowie; oraz projekt działania aplikacji komunikującej się z Google Assistant. Zdalny moduł wykorzystujący ESP8266 zostanie omówiony w innej części tego dokumentu.
 
 \begin{center}
 	\label{img:google}
 	\adjustbox{valign=t}{\includegraphics[width=14cm]{google.png}}
 \end{center}
-Rysunek \ref{img:google} przedstawia schemat części opartej o RPI i Google Assistanta.
+
+Rysunek \ref{img:google} przedstawia schemat działania aplikacji komunikującej się z Google Assistant. Po wydaniu komendy głosowej przez użytkownika jest ona następnie wysyłana do Google Assistant'a. Google Assistant zamienia mowę na tekst, który następnie jest wysyłany do naszego urządzenia. W zależności czy tekstowa wersja komendy została rozpoznana jako komenda wewnętrzna (zdefiniowana przez użytkownika, np. prośba o sprawdzenie skrzynki pocztowej lub o odtworzenie utworu z portalu \emph{YouTube}) urządzenie wykona ją i odtworzy nagraną wcześniej odpowiedź (ewentualny słowny komunikat od Google zostanie zignorowany). W przeciwnym przypadku urządzenie będzie czekać aż sztuczna inteligencja dostarczy słowną odpowiedź, a następnie odtworzy ją użytkownikowi.
 
 \subsection{Spis urządzeń}
 
