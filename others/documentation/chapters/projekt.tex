@@ -72,10 +72,12 @@ Na poniższym schemacie zaprezentowano układ połączeń wyżej wymienionych el
 Drugim kluczowym elementem naszego projektu jest układ wykorzystujący moduł \emph{ESP8266}. Zostanie do niego podłączony nadajnik IR, odbiornik IR i bateria. Gdy odczyt sygnału, nadawanego przez pierwsze z urządzeń, nie będzie możliwy, znaczy to, że na drodze wiązki znajduje się jakaś przeszkoda - w założeniach ma to być list. Moduł zostanie oprogramowany tak aby, co jakiś ustalony czas, wysyłać do serwera informacje o odczycie. W finalnej wersji układ ma zostać zamontowany w skrzynce.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=7cm]{StanyRozbudowaneESP.png}
-	\caption{Schemat działania modułu ESP8266}
+	\adjustbox{valign=t}{\includegraphics[width=14cm]{DiagramESP_5.png}}
+	\caption{Diagram stanów modułu ESP8266}
+	\label{DiagramESP}
 \end{figure}
+
+Powyższy diagram \ref{DiagramESP} przedstawia schemat działania modułu ESP w projekcie. Po uruchomieniu moduł dokonuje połączenia siecią WiFi. Po potwierdzeniu łączności, moduł rozpoczyna pomiar zajętości skrzynki. Pierwszym krokiem jest włączenie diody IR, następnie pomiar odbioru sygnału IR na czujniku i wyłączenie disy IR. Kolejno jest ustalany stan skrzynki w zależności od uzyskanego wyniku pomiarów. Następnie informacja o stanie skrzynki musi zostać wysłana do serwera. W ostatnim kroku moduł usypia, by po ustalony czasie powrócić do działania rozpoczynając pracę od kroku łączenia z siecią.
 
 \subsection{Spis urządzeń}
 
