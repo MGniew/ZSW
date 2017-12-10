@@ -349,7 +349,7 @@ W głównej pętli programu wywołujemy dwie funkcje: \emph{measurement} i \emph
 
 Serwer uruchamia się za pomocą skryptu \textbf{run.py}, który wywołuje metodę \textbf{run} z frameworku \textit{Flask} i wygląda następująco:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 if __name__ == "__main__":
     app.run(debug=True, host='<ip>', processes=5)
 \end{lstlisting}
@@ -358,7 +358,7 @@ Zwiększona liczba procesów była niezbędna, aby serwer poprawnie obsługiwał
 
 Następnie określono \textit{endpointy} zwracające stan skrzynki (\textbf{GET /state}) oraz zmieniające go (\textbf{POST /state/[state]}):
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 @app.route("/state")
 def get_state():
     response = Response(mailbox.get_state())
@@ -386,11 +386,12 @@ Składa się z trzech głównych części:
 \end{itemize}
 
 Wysyłanie zapytania wygląda następująco:
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 function getMailboxStatus() {
             return $http.get("http://<serwer_ip>:5000/state")
                 .then(handleResponse())
-                .catch(handleError('An error occurred while getting user data by session:'));
+                .catch(handleError('An error occurred 
+                	while getting user data by session:'));
         }
 \end{lstlisting}
 
@@ -398,7 +399,7 @@ Serwer zwraca 0 albo 1 i w zależności od tej wartości na stronie jest wyświe
 
 Funkcja kontrolera, która jest wywoływana po naciśnięciu przycisku:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 function check() {
             MainService.getMailboxStatus().then(function (response) {
                 if (response.data == 1) {
@@ -421,7 +422,7 @@ W ramach funkcji \textbf{check()} przedstawionej na powyższym listeningu, w zal
 
 Ważną kwestią jest uruchomienie aplikacji webowej z wykorzystaniem serwera \textit{node.js}.
 W tym celu został stworzony prosty skrypt \textbf{server.js}, który uruchamia aplikację na porcie 8080, w następujący sposób:
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 var connect = require('connect');
 var serveStatic = require('serve-static');
 connect().use(serveStatic(__dirname)).listen(8080, function(){
