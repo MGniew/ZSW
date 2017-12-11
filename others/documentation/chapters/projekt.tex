@@ -135,9 +135,14 @@ Endpoint & Request & Opis & Dodatkowo \\ \hline
 /state/[state] & POST & Zmiana stanu na [state] & state może przyjąć wartości: 0 lub 1 \\ \hline
 \end{longtable} 
 
-\begin{center}
+\begin{figure}[H]
 	\label{img:serwer_class}
 	\adjustbox{valign=t}{\includegraphics[width=6cm]{serwer_class.png}}
+	\caption{Klasa Mailbox}
+\end{figure}
+
+\begin{center}
+
 \end{center}
 
 Serwer korzysta z klasy Mailbox, która udostępnia dwie metody: do pobrania stanu skrzynki i do ustawienia stanu skrzynki. Więc o obu metodach można znaleźć w rozdziale 5 \textit{Realizacja}. Diagram klasy jest widoczny na rysunku \ref{img:serwer_class}
@@ -161,12 +166,14 @@ python run.py
 
 \section{Aplikacja webowa}
 
-\begin{center}
+
+\begin{figure}[H]
 	\label{img:skrzynka}
 	\adjustbox{valign=t}{\includegraphics[width=10cm]{skrzynka2.png}}
-\end{center}
+	\caption{Aplikacja webowa}
+\end{figure}
 
-Aplikacja webowa pozwala na sprawdzenie aktualnego stanu skrzynki pocztowej. Jest widoczna na rysunkach \ref{img:skrzynka}.
+Aplikacja webowa przedstawiona na rysunku \ref{img:skrzynka} pozwala na sprawdzenie aktualnego stanu skrzynki pocztowej.
 Logika aplikacji została stworzona w języku \textit{Java Script} wraz z \textit{AngularJS}, natomiast widok to \textit{HTML5} wraz z arkuszami stylów (\textit{CSS}).\\
 
 Składa się z trzech głównych części:
@@ -178,12 +185,13 @@ Składa się z trzech głównych części:
 
 Na stronie dostępny jest przycisk \textbf{Check it now!} (ang. \textit{Wypróbuj już teraz!}), który wywołuje metodę kontrolera odpowiedzialną za wykonanie zapytania do serwera przez serwis.
 
-\begin{center}
+\begin{figure}[H]
 	\label{img:web_diagram}
 	\adjustbox{valign=t}{\includegraphics[width=14cm]{web_diagram.png}}
-\end{center}
+	\caption{Schemat działania aplikacji webowe}
+\end{figure}
 
-Rysunek przedstawiony wyżej (\textit{Schemat działania aplikacji webowej}) przedstawia schemat działania aplikacji webowej.
+Rysunek przedstawiony wyżej \ref{img:web_diagram} przedstawia schemat działania aplikacji webowej.
 
 Uruchomienie serwera \textit{node.js} z parametrem wskazującym na ścieżkę do pliku \textbf{server.js}:
 \begin{lstlisting}
